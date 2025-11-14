@@ -9,6 +9,9 @@ import {
   ScrollSpyViewport,
 } from "@/components/ui/scroll-spy";
 import { BadgeCheck, Building2, Code2, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 const posicionesPorSector = {
   direccion: {
@@ -86,11 +89,18 @@ const posicionesPorSector = {
 export function PosicionesClave() {
   const [scrollContainer, setScrollContainer] =
     React.useState<HTMLDivElement | null>(null);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div className="py-12 md:py-16 px-4 md:px-6">
-      <div className="max-w-(--breakpoint-xl) mx-auto">
-        <div className="text-center mb-8 md:mb-12">
+    <section id="servicios" className="py-12 md:py-16 px-4 md:px-6">
+      <div ref={ref} className="max-w-(--breakpoint-xl) mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-8 md:mb-12"
+        >
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tighter mb-2 md:mb-3">
             Posiciones Clave por Sector
           </h2>
@@ -98,13 +108,18 @@ export function PosicionesClave() {
             Especializados en conectar el talento correcto con las posiciones
             más críticas
           </p>
-        </div>
+        </motion.div>
 
-        <ScrollSpy
-          offset={16}
-          scrollContainer={scrollContainer}
-          className="rounded-xl border shadow-sm overflow-hidden flex flex-col md:flex-row"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
+          <ScrollSpy
+            offset={16}
+            scrollContainer={scrollContainer}
+            className="rounded-xl border shadow-sm overflow-hidden flex flex-col md:flex-row"
+          >
           <ScrollSpyNav className="w-full md:w-56 border-r-0 md:border-r border-b md:border-b-0 bg-accent/30 p-3 md:p-6">
             <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-x-visible">
               <ScrollSpyLink
@@ -224,7 +239,8 @@ export function PosicionesClave() {
             </ScrollSpySection>
           </ScrollSpyViewport>
         </ScrollSpy>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 }

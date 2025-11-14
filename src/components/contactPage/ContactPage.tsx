@@ -13,7 +13,9 @@ import {
   Loader2,
 } from "lucide-react";
 import Link from "next/link";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useRef } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
 
 interface FormData {
   nombre: string;
@@ -38,6 +40,8 @@ const ContactPage = () => {
   });
 
   const [status, setStatus] = useState<FormStatus>({ type: "idle" });
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -130,19 +134,45 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-16">
-      <div className="w-full max-w-(--breakpoint-xl) mx-auto px-6 xl:px-0">
-        <b className="text-muted-foreground uppercase font-semibold text-sm">
+    <section
+      id="contacto"
+      className="min-h-screen flex items-center justify-center py-16"
+    >
+      <div
+        ref={ref}
+        className="w-full max-w-(--breakpoint-xl) mx-auto px-6 xl:px-0"
+      >
+        <motion.b
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+          className="text-muted-foreground uppercase font-semibold text-sm"
+        >
           Contáctanos
-        </b>
-        <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight">
+        </motion.b>
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight"
+        >
           ¡Hablemos sobre tu próximo líder!
-        </h2>
-        <p className="mt-3 text-base sm:text-lg text-muted-foreground">
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-3 text-base sm:text-lg text-muted-foreground"
+        >
           Déjanos tus datos para empezar a conectarte con el mejor talento del
           mercado.
-        </p>
-        <div className="mt-24 grid lg:grid-cols-2 gap-16 md:gap-10">
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-24 grid lg:grid-cols-2 gap-16 md:gap-10"
+        >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
             <div>
               <div className="h-12 w-12 flex items-center justify-center bg-primary/5 dark:bg-primary/10 text-primary rounded-full">
@@ -286,9 +316,9 @@ const ContactPage = () => {
               </form>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 
