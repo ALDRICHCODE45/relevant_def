@@ -28,14 +28,6 @@ const Navbar = () => {
         <NavMenu className="hidden md:block" />
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <Button
-            variant="outline"
-            className="hidden sm:inline-flex rounded-full text-xs sm:text-sm"
-            size="sm"
-            asChild
-          >
-            <Link href="#contacto">Iniciar Sesión</Link>
-          </Button>
           <Button className="rounded-full text-xs sm:text-sm" size="sm" asChild>
             <Link href="#contacto">Comenzar</Link>
           </Button>
