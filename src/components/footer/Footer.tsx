@@ -78,6 +78,12 @@ export default function Footer() {
           {" "}
           © {new Date().getFullYear()} Relevant, Todos los derechos reservados
         </span>
+
+        <span className="text-muted-foreground block text-center text-sm">
+          <Link href={"/privacy-policy"} className="cursor-pointer">
+            privacy policy
+          </Link>
+        </span>
       </div>
     </footer>
   );
