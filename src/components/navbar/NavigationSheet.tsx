@@ -9,6 +9,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Menu } from "lucide-react";
 //import { Logo } from "./logo";
 import { NavMenu } from "./Nav-menu";
+import Image from "next/image";
 
 export const NavigationSheet = () => {
   return (
@@ -23,7 +24,7 @@ export const NavigationSheet = () => {
         </Button>
       </SheetTrigger>
       <SheetContent className="px-6 py-3">
-        <p>Aqui va el logo</p>
+        <Image src="/logo.webp" alt="logo" width={200} height={200} />
         <NavMenu orientation="vertical" className="mt-6 [&>div]:h-full" />
       </SheetContent>
     </Sheet>
