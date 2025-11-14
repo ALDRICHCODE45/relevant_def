@@ -41,14 +41,14 @@ const Estadisticas = () => {
   return (
     <section
       id="resultados"
-      className="min-h-screen flex items-center justify-center px-6 py-12"
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16"
     >
-      <div ref={ref} className="max-w-(--breakpoint-lg)">
+      <div ref={ref} className="max-w-(--breakpoint-lg) w-full">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl leading-[1.15]! font-semibold tracking-tighter text-center"
+          className="text-3xl sm:text-4xl md:text-5xl leading-tight sm:leading-[1.15]! font-semibold tracking-tighter text-center px-2"
         >
           Resultados que Hablan por Sí Mismos
         </motion.h2>
@@ -56,13 +56,13 @@ const Estadisticas = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-3 text-xl text-center text-muted-foreground"
+          className="mt-3 text-base sm:text-lg md:text-xl text-center text-muted-foreground px-4"
         >
           Cifras reales que demuestran nuestro compromiso con la excelencia en
           reclutamiento para ti.
         </motion.p>
 
-        <div className="mt-12 grid md:grid-cols-2 gap-6">
+        <div className="mt-8 sm:mt-12 grid md:grid-cols-2 gap-4 sm:gap-6">
           {estadisticas.map(
             ({ numero, titulo, descripcion, icon: Icon }, index) => (
               <motion.div
@@ -74,18 +74,18 @@ const Estadisticas = () => {
                     : { opacity: 0, scale: 0.9 }
                 }
                 transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                className="group relative border p-8 rounded-xl hover:shadow-lg transition-all duration-300 hover:border-primary/50"
+                className="group relative border p-6 sm:p-8 rounded-xl hover:shadow-lg transition-all duration-300 hover:border-primary/50"
               >
-                <div className="h-12 w-12 flex items-center justify-center rounded-full bg-accent text-primary">
-                  <Icon className="w-6 h-6" />
+                <div className="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-full bg-accent text-primary">
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <div className="mt-6 text-6xl md:text-7xl font-bold tracking-tighter bg-linear-to-br from-primary to-primary/60 bg-clip-text text-transparent">
+                <div className="mt-4 sm:mt-6 text-5xl sm:text-6xl md:text-7xl font-bold tracking-tighter bg-linear-to-br from-primary to-primary/60 bg-clip-text text-transparent">
                   {numero}
                 </div>
-                <h3 className="mt-4 text-xl font-semibold tracking-tight">
+                <h3 className="mt-3 sm:mt-4 text-lg sm:text-xl font-semibold tracking-tight">
                   {titulo}
                 </h3>
-                <p className="mt-2 text-muted-foreground leading-relaxed">
+                <p className="mt-2 text-sm sm:text-base text-muted-foreground leading-relaxed">
                   {descripcion}
                 </p>
               </motion.div>

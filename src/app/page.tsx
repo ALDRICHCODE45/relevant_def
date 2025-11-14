@@ -63,10 +63,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    // Agregar verificación de Google Search Console si es necesario
-    // google: "verification-code",
-  },
+  verification: {},
 };
 
 export default function Home() {
