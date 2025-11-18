@@ -1,0 +1,27 @@
+Solo la primera letra mayuscula en todos los textos.
+1.- quitar badge de C-level y TI
+2.- cambiar relevant en hero section
+3.- subir hero section mas pegado al navbar.
+4.- quitar parentesis en "encontrandolos donde quirea que esten", en negritas
+5.- Cambiar letra blanco y negro.
+
+Resultados que hablan por si mismos.
+6.- Solo la primera letra mayuscula de todos los textos.
+7.- Poner el primer texto como CardTitle.
+8.- Cambiar Tasa de Satisfaccion por algo mas: "Tasa de recurrencia"
+
+
+Nuestra experiencia.
+9.- Quitar Sectores especializados donde conectamos el mejor talento TI
+quitar subtitulo
+
+Posiciones clave por seccion
+10.- quitar porcentajes
+
+Contactanos
+11.- Resuelve definitivamente tus necesidades de talento
+12.- Quitar Dejanos tus datos para empezar a conectarte con el mejor talento del mercado
+13.- Poner frase dejanos tus datos para empezar en version mobile
+
+Call To Action
+13.- Quitar call to action

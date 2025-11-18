@@ -50,18 +50,10 @@ export function Experience() {
           initial={{ opacity: 0, x: -50 }}
           animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-semibold tracking-tighter text-center mb-3"
+          className="text-3xl md:text-4xl font-semibold tracking-tighter text-center mb-10 text-[#0C2055]"
         >
-          Nuestra Experiencia
+          Nuestra experiencia
         </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, x: -30 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lg text-center text-muted-foreground mb-12"
-        >
-          Sectores especializados donde conectamos el mejor talento TI
-        </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}

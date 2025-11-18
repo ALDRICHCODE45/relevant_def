@@ -74,7 +74,6 @@ export default function Home() {
       <Experience />
       <PosicionesClave />
       <ContactPage />
-      <CallToAction />
       <Footer />
     </>
   );

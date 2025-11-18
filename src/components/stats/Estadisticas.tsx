@@ -13,13 +13,6 @@ const estadisticas = [
     descripcion: "De nuestros reclutados consiguen contratos indefinidos",
   },
   {
-    icon: Zap,
-    numero: "80%",
-    titulo: "Máximo Ahorro en Tiempo",
-    descripcion:
-      "De las ocasiones nuestros clientes seleccionan candidatos en la primera terna",
-  },
-  {
     icon: BadgeDollarSign,
     numero: "$0",
     titulo: "Cero Inversión",
@@ -27,9 +20,16 @@ const estadisticas = [
       "Nuestros socios no invierten un solo peso. Solo pagan por el éxito con tarifa única cuando el talento esté firmado y presente",
   },
   {
+    icon: Zap,
+    numero: "80%",
+    titulo: "Máximo Ahorro en Tiempo",
+    descripcion:
+      "De las ocasiones nuestros clientes seleccionan candidatos en la primera terna",
+  },
+  {
     icon: UserRoundCheck,
     numero: "80%",
-    titulo: "Tasa de Satisfacción",
+    titulo: "Tasa de recurrencia",
     descripcion: "De nuestros clientes nos contratan en más de una ocasión",
   },
 ];
@@ -50,7 +50,7 @@ const Estadisticas = () => {
           transition={{ duration: 0.6 }}
           className="text-3xl sm:text-4xl md:text-5xl leading-tight sm:leading-[1.15]! font-semibold tracking-tighter text-center px-2"
         >
-          Resultados que Hablan por Sí Mismos
+          Resultados que hablan por sí mismos
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -76,15 +76,17 @@ const Estadisticas = () => {
                 transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                 className="group relative border p-6 sm:p-8 rounded-xl hover:shadow-lg transition-all duration-300 hover:border-primary/50"
               >
-                <div className="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-full bg-accent text-primary">
-                  <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+                <div className="w-full flex  rounded-full bg-accent text-primary p-2">
+                  <div className="flex items-center">
+                    <Icon />
+                  </div>
+                  <h3 className="text-lg ml-3 sm:text-xl font-semibold tracking-tight">
+                    {titulo}
+                  </h3>
                 </div>
                 <div className="mt-4 sm:mt-6 text-5xl sm:text-6xl md:text-7xl font-bold tracking-tighter bg-linear-to-br from-primary to-primary/60 bg-clip-text text-transparent">
                   {numero}
                 </div>
-                <h3 className="mt-3 sm:mt-4 text-lg sm:text-xl font-semibold tracking-tight">
-                  {titulo}
-                </h3>
                 <p className="mt-2 text-sm sm:text-base text-muted-foreground leading-relaxed">
                   {descripcion}
                 </p>

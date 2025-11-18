@@ -81,7 +81,7 @@ export default function Footer() {
 
         <span className="text-muted-foreground block text-center text-sm">
           <Link href={"/privacy-policy"} className="cursor-pointer">
-            privacy policy
+            Privacy Policy
           </Link>
         </span>
       </div>

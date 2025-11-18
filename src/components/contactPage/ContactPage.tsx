@@ -156,17 +156,8 @@ const ContactPage = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight"
         >
-          ¡Hablemos sobre tu próximo líder!
+          Resuelve definitivamente tus necesidades de talento
         </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-3 text-base sm:text-lg text-muted-foreground"
-        >
-          Déjanos tus datos para empezar a conectarte con el mejor talento del
-          mercado.
-        </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}

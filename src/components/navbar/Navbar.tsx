@@ -28,7 +28,7 @@ const Navbar = () => {
         <NavMenu className="hidden md:block" />
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <Button className="rounded-full text-xs sm:text-sm" size="sm" asChild>
+          <Button size="sm" asChild>
             <Link href="#contacto">Comenzar</Link>
           </Button>
 
