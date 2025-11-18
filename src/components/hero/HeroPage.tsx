@@ -31,7 +31,10 @@ export default function HeroPage() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-2xl text-[#0C2055] sm:text-3xl md:text-5xl lg:text-6xl leading-tight sm:leading-[1.2] font-semibold tracking-tighter px-2"
         >
-          relevant <span className="text-sm">®</span>
+          relevant{" "}
+          <span className="text-base md:text-lg lg:text-xl align-super relative -top-1">
+            ®
+          </span>
         </motion.h1>
 
         <motion.p
@@ -42,11 +45,11 @@ export default function HeroPage() {
         >
           Relevant es el socio definitivo para tus necesidades de talento
           especializado y C-Level.
-          <span>
+          <span className="block mt-1">
             Somos el único headhunter boutique que se sumerge en el ADN de tu
             empresa antes de comenzar a entregarte candidatos de valor,{" "}
+            <strong>encontrándolos donde quiera que estén</strong>
           </span>
-          <strong>encontrándolos donde quiera que estén</strong>
         </motion.p>
 
         <motion.div
