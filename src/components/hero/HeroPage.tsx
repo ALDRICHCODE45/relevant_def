@@ -41,10 +41,12 @@ export default function HeroPage() {
           className="m-4 text-sm sm:text-base md:text-lg text-black px-4 sm:px-0 leading-relaxed"
         >
           Relevant es el socio definitivo para tus necesidades de talento
-          especializado y C-Level. Somos el único headhunter boutique que se
-          sumerge en el ADN de tu empresa antes de comenzar a entregarte
-          candidatos de valor.{" "}
-          <strong>encontrandolos donde quiera que estén</strong>
+          especializado y C-Level.
+          <span>
+            Somos el único headhunter boutique que se sumerge en el ADN de tu
+            empresa antes de comenzar a entregarte candidatos de valor,{" "}
+          </span>
+          <strong>encontrándolos donde quiera que estén</strong>
         </motion.p>
 
         <motion.div

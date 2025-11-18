@@ -9,20 +9,20 @@ const estadisticas = [
   {
     icon: Target,
     numero: "93%",
-    titulo: "Mayor Rate de Permanencia Definitiva",
+    titulo: "Mayor rate de permanencia definitiva",
     descripcion: "De nuestros reclutados consiguen contratos indefinidos",
   },
   {
     icon: BadgeDollarSign,
     numero: "$0",
-    titulo: "Cero Inversión",
+    titulo: "Cero inversión",
     descripcion:
       "Nuestros socios no invierten un solo peso. Solo pagan por el éxito con tarifa única cuando el talento esté firmado y presente",
   },
   {
     icon: Zap,
     numero: "80%",
-    titulo: "Máximo Ahorro en Tiempo",
+    titulo: "Máximo ahorro en tiempo",
     descripcion:
       "De las ocasiones nuestros clientes seleccionan candidatos en la primera terna",
   },
