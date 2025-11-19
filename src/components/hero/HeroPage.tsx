@@ -68,17 +68,6 @@ export default function HeroPage() {
               <ArrowUpRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1" />
             </Link>
           </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="rounded-full text-sm sm:text-base shadow-none w-full sm:w-auto border-black text-black hover:bg-black hover:text-white"
-            asChild
-          >
-            <Link href="#resultados">
-              <CirclePlay className="h-4 w-4 sm:h-5 sm:w-5 mr-1" /> Ver casos de
-              éxito
-            </Link>
-          </Button>
         </motion.div>
       </div>
     </section>
