@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
   MailIcon,
-  MessageCircle,
   CheckCircle2,
   AlertCircle,
   Loader2,
@@ -202,7 +200,7 @@ const ContactPage = () => {
               </p>
               <Link
                 className="font-medium text-primary"
-                href="https://wa.me/12345678"
+                href="https://wa.me/5623191438"
                 target="_blank"
                 rel="noopener noreferrer"
               >
