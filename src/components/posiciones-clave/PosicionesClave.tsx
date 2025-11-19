@@ -220,7 +220,7 @@ export function PosicionesClave() {
                       className={idx > 0 ? "mt-6 md:mt-8" : ""}
                     >
                       <h4 className="text-base md:text-lg font-semibold mb-3 md:mb-4 flex items-center gap-2 text-[#0C2055]">
-                        <span className="h-7 w-7 md:h-8 md:w-8 flex items-center justify-center rounded-full bg-primary text-primary-foreground text-xs md:text-sm font-bold shrink-0">
+                        <span className="h-7 w-7 md:h-8 md:w-8 flex items-center justify-center rounded-full bg-[#0C2055] text-primary-foreground text-xs md:text-sm font-bold shrink-0">
                           {String.fromCharCode(65 + idx)}
                         </span>
                         <span>{subseccion.subtitulo}</span>
