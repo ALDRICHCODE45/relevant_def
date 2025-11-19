@@ -102,7 +102,7 @@ export function PosicionesClave() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8 md:mb-12"
         >
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tighter mb-2 md:mb-3 text-[#0C2055]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tighter mb-2 md:mb-3 text-[#0C2055]">
             Posiciones clave por sector
           </h2>
           <p className="text-sm md:text-base lg:text-lg text-black px-2">

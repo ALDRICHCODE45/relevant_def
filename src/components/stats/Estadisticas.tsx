@@ -48,7 +48,7 @@ const Estadisticas = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl md:text-5xl leading-tight sm:leading-[1.15]! font-semibold tracking-tighter text-center px-2"
+          className="text-3xl sm:text-4xl text-[#0C2055]  md:text-5xl leading-tight sm:leading-[1.15]! font-semibold tracking-tighter text-center px-2"
         >
           Resultados que hablan por sí mismos
         </motion.h2>

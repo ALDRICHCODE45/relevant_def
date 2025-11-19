@@ -50,7 +50,7 @@ export function Experience() {
           initial={{ opacity: 0, x: -50 }}
           animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
           transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-semibold tracking-tighter text-center mb-10 text-[#0C2055]"
+          className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tighter text-center mb-10 text-[#0C2055]"
         >
           Nuestra experiencia
         </motion.h2>

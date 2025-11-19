@@ -291,7 +291,7 @@ const ContactPage = () => {
                 </div>
                 <Button
                   type="submit"
-                  className="mt-6 w-full"
+                  className="mt-6 w-full bg-[#0C2055] cursor-pointer"
                   size="lg"
                   disabled={status.type === "loading"}
                 >

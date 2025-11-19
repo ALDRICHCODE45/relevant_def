@@ -28,7 +28,7 @@ const Navbar = () => {
         <NavMenu className="hidden md:block" />
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <Button size="sm" asChild>
+          <Button size="sm" asChild className="bg-[#0C2055]">
             <Link href="#contacto">Comenzar</Link>
           </Button>
 
