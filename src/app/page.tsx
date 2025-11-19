@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import CallToAction from "@/components/callToAction/CallToAction";
 import ContactPage from "@/components/contactPage/ContactPage";
 import { Experience } from "@/components/experience/Experience";
 import Footer from "@/components/footer/Footer";

@@ -48,7 +48,7 @@ export default function HeroPage() {
           <span className="block mt-1">
             Somos el único headhunter boutique que se sumerge en el ADN de tu
             empresa antes de comenzar a entregarte candidatos de valor,{" "}
-            <strong>encontrándolos donde quiera que estén</strong>
+            <strong>encontrándolos donde quiera que estén.</strong>
           </span>
         </motion.p>
 

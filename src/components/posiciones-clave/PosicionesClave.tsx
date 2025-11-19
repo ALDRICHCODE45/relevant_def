@@ -41,7 +41,6 @@ const posicionesPorSector = {
       "Compras",
       "Impuestos",
       "Auditores",
-      "Riesgo Ventas",
       "Digital Servicio",
       "Técnico",
       "Logística",
