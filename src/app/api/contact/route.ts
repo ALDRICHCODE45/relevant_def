@@ -1,14 +1,24 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { NextRequest, NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Configurar transportador SMTP
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: parseInt(process.env.SMTP_PORT || "587"),
+  secure: parseInt(process.env.SMTP_PORT || "587") === 465, // true para 465, false para otros puertos
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 // Correos institucionales destinatarios
 const RECIPIENTS = [
-  "salvador@trustpeople.company",
-  "digital@trustpeople.company",
-  "gerencia@relevantmx.com",
-  "manuel@topsales.expert",
+  "nocheblanca92@gmail.com",
+  // "salvador@trustpeople.company",
+  // "digital@trustpeople.company",
+  // "gerencia@relevantmx.com",
+  // "manuel@topsales.expert",
 ];
 
 interface ContactFormData {
@@ -52,103 +62,130 @@ export async function POST(request: NextRequest) {
       <html>
         <head>
           <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <style>
             body {
               font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
               line-height: 1.6;
-              color: #333;
+              color: #0C2055;
+              background-color: #ffffff;
               max-width: 600px;
               margin: 0 auto;
-              padding: 20px;
+              padding: 0;
+            }
+            .container {
+              background-color: #ffffff;
+              padding: 40px 32px;
             }
             .header {
-              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-              color: white;
-              padding: 30px;
-              border-radius: 10px 10px 0 0;
-              text-align: center;
+              border-bottom: 3px solid #0C2055;
+              padding-bottom: 24px;
+              margin-bottom: 32px;
             }
-            .content {
-              background: #f8f9fa;
-              padding: 30px;
-              border-radius: 0 0 10px 10px;
+            .header h1 {
+              margin: 0;
+              font-size: 28px;
+              font-weight: 600;
+              color: #0C2055;
+              letter-spacing: -0.5px;
+            }
+            .header p {
+              margin: 8px 0 0 0;
+              font-size: 14px;
+              color: #6c757d;
+              font-weight: 400;
             }
             .field {
-              margin-bottom: 20px;
-              background: white;
-              padding: 15px;
-              border-radius: 8px;
-              border-left: 4px solid #667eea;
+              margin-bottom: 24px;
+              padding-bottom: 24px;
+              border-bottom: 1px solid #e8e9ea;
+            }
+            .field:last-of-type {
+              border-bottom: none;
             }
             .field-label {
               font-weight: 600;
-              color: #667eea;
-              font-size: 12px;
+              color: #0C2055;
+              font-size: 11px;
               text-transform: uppercase;
-              letter-spacing: 0.5px;
-              margin-bottom: 5px;
+              letter-spacing: 0.8px;
+              margin-bottom: 8px;
+              display: block;
             }
             .field-value {
-              color: #333;
-              font-size: 15px;
+              color: #0C2055;
+              font-size: 16px;
+              line-height: 1.5;
+            }
+            .field-value a {
+              color: #00bf63;
+              text-decoration: none;
+              font-weight: 500;
+            }
+            .field-value a:hover {
+              text-decoration: underline;
             }
             .mensaje {
               white-space: pre-wrap;
               word-wrap: break-word;
+              line-height: 1.7;
             }
             .footer {
+              margin-top: 40px;
+              padding-top: 24px;
+              border-top: 1px solid #e8e9ea;
               text-align: center;
-              margin-top: 20px;
-              padding-top: 20px;
-              border-top: 1px solid #dee2e6;
+            }
+            .footer p {
+              margin: 4px 0;
+              color: #6c757d;
+              font-size: 12px;
+            }
+            .footer-text {
               color: #6c757d;
               font-size: 12px;
             }
           </style>
         </head>
         <body>
-          <div class="header">
-            <h1 style="margin: 0; font-size: 24px;">Nuevo Contacto desde Relevant</h1>
-            <p style="margin: 10px 0 0 0; opacity: 0.9;">Formulario de contacto web</p>
-          </div>
-          
-          <div class="content">
+          <div class="container">
+            <div class="header">
+              <h1>Nuevo Contacto desde Relevant</h1>
+              <p>Formulario de contacto web</p>
+            </div>
+            
             <div class="field">
-              <div class="field-label">Nombre</div>
+              <span class="field-label">Nombre</span>
               <div class="field-value">${nombre}</div>
             </div>
             
             <div class="field">
-              <div class="field-label">Empresa</div>
+              <span class="field-label">Empresa</span>
               <div class="field-value">${empresa}</div>
             </div>
             
             <div class="field">
-              <div class="field-label">Email</div>
+              <span class="field-label">Email</span>
               <div class="field-value">
-                <a href="mailto:${email}" style="color: #667eea; text-decoration: none;">
-                  ${email}
-                </a>
+                <a href="mailto:${email}">${email}</a>
               </div>
             </div>
             
             <div class="field">
-              <div class="field-label">Teléfono</div>
+              <span class="field-label">Teléfono</span>
               <div class="field-value">
-                <a href="tel:${telefono}" style="color: #667eea; text-decoration: none;">
-                  ${telefono}
-                </a>
+                <a href="tel:${telefono}">${telefono}</a>
               </div>
             </div>
             
             <div class="field">
-              <div class="field-label">Posiciones a cubrir</div>
+              <span class="field-label">Posiciones a cubrir</span>
               <div class="field-value mensaje">${mensaje}</div>
             </div>
             
             <div class="footer">
-              <p>Enviado el: ${fechaEnvio}</p>
-              <p>Este mensaje fue enviado desde el formulario de contacto de Relevant</p>
+              <p class="footer-text">Enviado el: ${fechaEnvio}</p>
+              <p class="footer-text">Este mensaje fue enviado desde el formulario de contacto de Relevant</p>
             </div>
           </div>
         </body>
@@ -156,15 +193,19 @@ export async function POST(request: NextRequest) {
     `;
 
     // 1. Enviar email a los correos institucionales
-    const { data, error } = await resend.emails.send({
-      from: "Relevant Contacto <contacto@relevantmx.com>",
-      to: RECIPIENTS,
-      replyTo: email, // Responder directamente al cliente
-      subject: `Nuevo Contacto desde Relevant - ${nombre}`,
-      html: emailHtml,
-    });
+    const fromEmail = process.env.SMTP_FROM || "contacto@relevantmx.com";
+    
+    try {
+      const info = await transporter.sendMail({
+        from: `Relevant Contacto <${fromEmail}>`,
+        to: RECIPIENTS.join(", "), // Nodemailer acepta string separado por comas
+        replyTo: email, // Responder directamente al cliente
+        subject: `Nuevo Contacto desde Relevant - ${nombre}`,
+        html: emailHtml,
+      });
 
-    if (error) {
+      console.log("Email enviado a institucionales:", info.messageId);
+    } catch (error) {
       console.error("Error enviando email a institucionales:", error);
       return NextResponse.json(
         { error: "Error al enviar el mensaje. Por favor intenta de nuevo." },
@@ -178,98 +219,189 @@ export async function POST(request: NextRequest) {
       <html>
         <head>
           <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <style>
             body {
               font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
               line-height: 1.6;
-              color: #333;
+              color: #0C2055;
+              background-color: #ffffff;
               max-width: 600px;
               margin: 0 auto;
-              padding: 20px;
+              padding: 0;
+            }
+            .container {
+              background-color: #ffffff;
+              padding: 40px 32px;
             }
             .header {
-              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-              color: white;
-              padding: 40px 30px;
-              border-radius: 10px 10px 0 0;
               text-align: center;
+              padding-bottom: 32px;
+              border-bottom: 3px solid #00bf63;
+              margin-bottom: 32px;
+            }
+            .logo-container {
+              display: inline-block;
+              margin-bottom: 20px;
+              background-color: transparent !important;
+              background: transparent !important;
+            }
+            .logo {
+              max-width: 180px;
+              height: auto;
+              display: block;
+              background-color: transparent !important;
+              background: transparent !important;
+              border: none;
+              outline: none;
+            }
+            .header h1 {
+              margin: 0 0 8px 0;
+              font-size: 28px;
+              font-weight: 600;
+              color: #0C2055;
+              letter-spacing: -0.5px;
+            }
+            .header p {
+              margin: 0;
+              font-size: 14px;
+              color: #6c757d;
+              font-weight: 400;
             }
             .content {
-              background: #f8f9fa;
-              padding: 40px 30px;
-              border-radius: 0 0 10px 10px;
+              margin-bottom: 32px;
             }
-            .message {
-              background: white;
-              padding: 25px;
-              border-radius: 8px;
+            .greeting {
+              font-size: 18px;
+              font-weight: 600;
+              color: #0C2055;
               margin-bottom: 20px;
-              border-left: 4px solid #667eea;
+            }
+            .message-text {
+              font-size: 16px;
+              line-height: 1.7;
+              color: #0C2055;
+              margin-bottom: 16px;
+            }
+            .message-text strong {
+              color: #0C2055;
+              font-weight: 600;
+            }
+            .cta-section {
+              text-align: center;
+              margin: 32px 0;
+              padding: 32px 0;
+              border-top: 1px solid #e8e9ea;
+              border-bottom: 1px solid #e8e9ea;
+            }
+            .cta-text {
+              font-size: 14px;
+              color: #6c757d;
+              margin-bottom: 20px;
             }
             .cta-button {
               display: inline-block;
-              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-              color: white;
-              padding: 14px 30px;
+              background-color: #00bf63;
+              color: #0C2055;
+              padding: 14px 32px;
               text-decoration: none;
               border-radius: 8px;
               font-weight: 600;
-              margin: 20px 0;
+              font-size: 15px;
+              transition: background-color 0.2s;
             }
-            .footer {
-              text-align: center;
-              margin-top: 30px;
-              padding-top: 20px;
-              border-top: 1px solid #dee2e6;
-              color: #6c757d;
+            .cta-button:hover {
+              background-color: #02C565;
+              color: #0C2055;
+            }
+            .summary {
+              background-color: #f8f9fa;
+              padding: 24px;
+              border-radius: 8px;
+              margin-top: 32px;
+              border: 1px solid #e8e9ea;
+            }
+            .summary h3 {
+              margin: 0 0 16px 0;
+              font-size: 15px;
+              font-weight: 600;
+              color: #0C2055;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            }
+            .summary ul {
+              margin: 0;
+              padding-left: 20px;
+              list-style: none;
+            }
+            .summary li {
+              margin-bottom: 8px;
+              color: #0C2055;
               font-size: 14px;
             }
-            .check-icon {
-              width: 60px;
-              height: 60px;
-              background: #28a745;
-              border-radius: 50%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin: 0 auto 20px;
-              font-size: 30px;
+            .summary li strong {
+              color: #0C2055;
+              font-weight: 600;
+            }
+            .footer {
+              margin-top: 40px;
+              padding-top: 24px;
+              border-top: 1px solid #e8e9ea;
+              text-align: center;
+            }
+            .footer p {
+              margin: 4px 0;
+              color: #6c757d;
+              font-size: 12px;
+            }
+            .footer strong {
+              color: #0C2055;
+              font-weight: 600;
+            }
+            .footer a {
+              color: #00bf63;
+              text-decoration: none;
+            }
+            .footer a:hover {
+              text-decoration: underline;
+            }
+            .footer-note {
+              margin-top: 16px;
+              padding-top: 16px;
+              border-top: 1px solid #e8e9ea;
+              font-size: 11px;
+              color: #9ca3af;
             }
           </style>
         </head>
         <body>
-          <div class="header">
-            <div class="check-icon">✓</div>
-            <h1 style="margin: 0; font-size: 28px;">¡Gracias por contactarnos!</h1>
-            <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 16px;">Hemos recibido tu mensaje correctamente</p>
-          </div>
-          
-          <div class="content">
-            <div class="message">
-              <h2 style="margin-top: 0; color: #667eea;">Hola ${nombre},</h2>
-              <p style="font-size: 16px; line-height: 1.8;">
+          <div class="container">
+            <div class="header">
+              <h1>¡Gracias por contactarnos!</h1>
+              <p>Hemos recibido tu mensaje correctamente</p>
+            </div>
+            
+            <div class="content">
+              <div class="greeting">Hola ${nombre},</div>
+              <p class="message-text">
                 Gracias por ponerte en contacto con <strong>Relevant</strong>. 
                 Hemos recibido tu solicitud y nuestro equipo de especialistas en reclutamiento 
                 está revisando tu mensaje.
               </p>
-              <p style="font-size: 16px; line-height: 1.8;">
+              <p class="message-text">
                 Nos pondremos en contacto contigo a la brevedad para ayudarte a encontrar 
                 el talento que tu empresa necesita.
               </p>
             </div>
 
-            <div style="text-align: center;">
-              <p style="font-size: 14px; color: #6c757d; margin-bottom: 10px;">
-                Mientras tanto, conoce más sobre nosotros:
-              </p>
-              <a href="https://relevantmx.com" class="cta-button" style="color: white;">
-                Visitar nuestro sitio web
-              </a>
+            <div class="cta-section">
+              <p class="cta-text">Mientras tanto, conoce más sobre nosotros:</p>
+              <a href="https://relevantmx.com" class="cta-button">Visitar nuestro sitio web</a>
             </div>
 
-            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 20px;">
-              <h3 style="margin-top: 0; font-size: 16px; color: #667eea;">📋 Resumen de tu solicitud:</h3>
-              <ul style="padding-left: 20px; color: #6c757d;">
+            <div class="summary">
+              <h3>Resumen de tu solicitud</h3>
+              <ul>
                 <li><strong>Empresa:</strong> ${empresa}</li>
                 <li><strong>Email:</strong> ${email}</li>
                 <li><strong>Teléfono:</strong> ${telefono}</li>
@@ -277,16 +409,12 @@ export async function POST(request: NextRequest) {
             </div>
 
             <div class="footer">
-              <p style="margin: 5px 0;">
-                <strong>Relevant - Headhunting Especializado</strong>
+              <p><strong>Relevant - Headhunting Especializado</strong></p>
+              <p>Conectando el mejor talento TI y C-Level con las empresas líderes</p>
+              <p style="margin-top: 12px;">
+                <a href="mailto:relevantmx@gmail.com">relevantmx@gmail.com</a>
               </p>
-              <p style="margin: 5px 0;">
-                Conectando el mejor talento TI y C-Level con las empresas líderes
-              </p>
-              <p style="margin: 15px 0 5px 0;">
-                📧 <a href="mailto:contacto@relevantmx.com" style="color: #667eea; text-decoration: none;">contacto@relevantmx.com</a>
-              </p>
-              <p style="margin: 5px 0; font-size: 12px; color: #999;">
+              <p class="footer-note">
                 Este es un email automático de confirmación. Por favor no respondas a este mensaje.
               </p>
             </div>
@@ -295,15 +423,17 @@ export async function POST(request: NextRequest) {
       </html>
     `;
 
-    const { error: confirmacionError } = await resend.emails.send({
-      from: "Relevant <contacto@relevantmx.com>",
-      to: email, // Email del usuario
-      subject: "✅ Hemos recibido tu mensaje - Relevant",
-      html: confirmacionHtml,
-    });
-
     // No bloqueamos si falla el email de confirmación, solo lo registramos
-    if (confirmacionError) {
+    try {
+      const confirmacionInfo = await transporter.sendMail({
+        from: `Relevant <${fromEmail}>`,
+        to: email, // Email del usuario
+        subject: "✅ Hemos recibido tu mensaje - Relevant",
+        html: confirmacionHtml,
+      });
+
+      console.log("Email de confirmación enviado:", confirmacionInfo.messageId);
+    } catch (confirmacionError) {
       console.error("Error enviando email de confirmación:", confirmacionError);
       // Continuamos de todos modos ya que el email principal sí se envió
     }
@@ -312,7 +442,6 @@ export async function POST(request: NextRequest) {
       {
         success: true,
         message: "Mensaje enviado correctamente",
-        emailId: data?.id,
       },
       { status: 200 }
     );

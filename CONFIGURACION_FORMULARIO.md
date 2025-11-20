@@ -1,163 +1,239 @@
-# Configuración del Formulario de Contacto con Resend
+# Configuración del Formulario de Contacto con Nodemailer
 
-Este documento explica cómo configurar y probar el formulario de contacto que envía emails usando Resend.
+Este documento explica cómo configurar y probar el formulario de contacto que envía emails usando Nodemailer con SMTP.
 
 ## 📋 Requisitos Previos
 
-- Cuenta en [Resend](https://resend.com)
-- API Key de Resend
+- Credenciales SMTP de un proveedor de correo (Gmail, Outlook, SendGrid, etc.)
+- Servidor SMTP configurado y accesible
 
 ## 🔧 Configuración
 
-### 1. Crear una Cuenta en Resend
+### 1. Obtener Credenciales SMTP
 
-1. Ve a [https://resend.com](https://resend.com)
-2. Crea una cuenta gratuita (incluye 3,000 emails/mes)
-3. Verifica tu email
+Necesitas las credenciales SMTP de tu proveedor de correo electrónico. Aquí algunos ejemplos:
 
-### 2. Obtener tu API Key
+**Gmail / Google Workspace:**
+- Host: `smtp.gmail.com`
+- Puerto: `587` (TLS) o `465` (SSL)
+- Usuario: Tu email (Gmail personal o Google Workspace como `tech@trustpeople.company`)
+- Contraseña: Contraseña de aplicación (requiere autenticación de 2 factores)
+- **Nota:** Google Workspace usa la misma configuración SMTP que Gmail personal
 
-1. Inicia sesión en tu cuenta de Resend
-2. Ve a **API Keys** en el menú lateral
-3. Haz clic en **Create API Key**
-4. Dale un nombre (ej: "Relevant Formulario Contacto")
-5. Selecciona los permisos necesarios (Full Access o Sending Access)
-6. Copia la API Key (empieza con `re_`)
+**Outlook/Office365:**
+- Host: `smtp.office365.com`
+- Puerto: `587`
+- Usuario: Tu email de Outlook
+- Contraseña: Tu contraseña de Outlook
 
-**⚠️ IMPORTANTE:** Guarda tu API Key en un lugar seguro. Solo se muestra una vez.
+**SendGrid:**
+- Host: `smtp.sendgrid.net`
+- Puerto: `587`
+- Usuario: `apikey`
+- Contraseña: Tu API Key de SendGrid
 
-### 3. Configurar Variable de Entorno
+**Servidor SMTP Personalizado:**
+- Host: Tu servidor SMTP
+- Puerto: `587` (TLS) o `465` (SSL) o `25` (sin encriptación)
+- Usuario: Tu usuario SMTP
+- Contraseña: Tu contraseña SMTP
+
+### 2. Configurar Variables de Entorno
 
 1. Abre el archivo `.env.local` en la raíz del proyecto
-2. Reemplaza `re_your_api_key_here` con tu API Key real:
+2. Agrega las siguientes variables con tus credenciales SMTP:
 
 ```bash
-RESEND_API_KEY=re_tu_api_key_aqui
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=tu_usuario@example.com
+SMTP_PASS=tu_contraseña
+SMTP_FROM=contacto@relevantmx.com
 ```
 
-3. Guarda el archivo
-
-### 4. Reiniciar el Servidor de Desarrollo
-
-Si el servidor ya está corriendo, detenlo y reinícialo para que cargue las nuevas variables de entorno:
-
+**Ejemplo para Gmail personal:**
 ```bash
-# Detener el servidor (Ctrl+C)
-# Iniciar de nuevo
-bun run dev
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=relevantmx@gmail.com
+SMTP_PASS=tu_contraseña_de_aplicacion_generada
+SMTP_FROM=relevantmx@gmail.com
 ```
 
-## 🚀 Probar el Formulario
-
-### 1. Acceder al Formulario
-
-1. Abre tu navegador en `http://localhost:3000`
-2. Desplázate hasta la sección de **Contacto** al final de la página
-
-### 2. Llenar el Formulario
-
-Completa todos los campos:
-
-- **Nombre:** Tu nombre
-- **Empresa:** Nombre de la empresa
-- **Email:** Tu correo electrónico (válido)
-- **Teléfono Celular:** Tu número de teléfono
-- **Posiciones a cubrir:** Descripción de las necesidades
-- **✓** Marca el checkbox de términos y condiciones
-
-### 3. Enviar el Formulario
-
-1. Haz clic en **"Enviar Mensaje"**
-2. El botón mostrará "Enviando..." con un spinner
-3. Si todo está correcto, verás un mensaje verde de éxito
-4. Si hay un error, verás un mensaje rojo con el problema
-
-### 4. Verificar Recepción
-
-El email se enviará automáticamente a los siguientes correos:
-
-- salvador@trustpeople.company
-- digital@trustpeople.company
-- gerencia@relevantmx.com
-- manuel@topsales.expert
-
-Revisa la bandeja de entrada de estos correos para confirmar la recepción.
-
-## 📧 Formato del Email
-
-El email recibido incluirá:
-
-- Asunto: "Nuevo Contacto desde Relevant - [Nombre del contacto]"
-- Formato HTML con diseño profesional
-- Todos los datos del formulario
-- Fecha y hora del envío
-- Reply-To configurado al email del cliente (para responder directamente)
-
-## 🔍 Debugging
-
-### El email no se envía
-
-1. **Verificar API Key:**
-
-   - Asegúrate de que la API Key en `.env.local` sea correcta
-   - Verifica que no tenga espacios al inicio o final
-   - Debe empezar con `re_`
-
-2. **Verificar el servidor:**
-
-   - Reinicia el servidor después de cambiar `.env.local`
-   - Revisa la consola del servidor para ver errores
-
-3. **Verificar Network en el navegador:**
-   - Abre DevTools (F12)
-   - Ve a la pestaña Network
-   - Envía el formulario
-   - Busca la petición a `/api/contact`
-   - Revisa la respuesta para ver el error específico
-
-### ⚠️ Limitación de Cuenta sin Dominio Verificado
-
-**IMPORTANTE**: Sin un dominio verificado, Resend solo permite enviar emails a tu propia dirección registrada (`desinbakan@gmail.com`).
-
-**Código actual**: Configurado temporalmente para enviar solo a `desinbakan@gmail.com`
-
-**Para enviar a los 4 correos institucionales en producción:**
-
-Lee la guía completa: **[VERIFICAR_DOMINIO_RESEND.md](./VERIFICAR_DOMINIO_RESEND.md)**
-
-Pasos rápidos:
-
-1. Ve a **Domains** en tu panel de Resend
-2. Agrega tu dominio `relevantmx.com`
-3. Configura los registros DNS (SPF, DKIM, DMARC)
-4. Espera verificación (1-72 horas)
-5. Actualiza `src/app/api/contact/route.ts`:
-
-```typescript
-// Descomentar los emails institucionales
-const RECIPIENTS = [
-  "salvador@trustpeople.company",
-  "digital@trustpeople.company",
-  "gerencia@relevantmx.com",
-  "manuel@topsales.expert",
-];
-
-// Cambiar el remitente
-from: "Contacto Relevant <contacto@relevantmx.com>",
+**Ejemplo para Google Workspace (correo corporativo):**
+```bash
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=tech@trustpeople.company
+SMTP_PASS=tu_contraseña_de_aplicacion_generada
+SMTP_FROM=tech@trustpeople.company
 ```
 
-## 📊 Límites del Plan Gratuito
+---
 
-- **3,000 emails por mes**
-- **100 emails por día**
-- Suficiente para la mayoría de sitios web pequeños y medianos
+## 📧 Configuración Detallada para Gmail / Google Workspace
+
+**Nota:** Esta configuración funciona tanto para Gmail personal (`@gmail.com`) como para Google Workspace (correos corporativos como `@trustpeople.company`, `@tudominio.com`, etc.).
+
+### Paso 1: Habilitar Verificación en 2 Pasos (Requerido)
+
+Tanto Gmail como Google Workspace requieren que tengas habilitada la verificación en 2 pasos para generar contraseñas de aplicación.
+
+1. Ve a tu cuenta de Google: [https://myaccount.google.com](https://myaccount.google.com)
+2. En el menú lateral izquierdo, haz clic en **"Seguridad"**
+3. Busca la sección **"Acceso a Google"**
+4. Si no tienes activada la verificación en 2 pasos, haz clic en **"Verificación en 2 pasos"**
+5. Sigue las instrucciones para configurarla:
+   - Ingresa tu número de teléfono
+   - Recibirás un código por SMS
+   - Ingresa el código para confirmar
+   - Guarda los códigos de respaldo en un lugar seguro
+
+**⚠️ IMPORTANTE:** Este paso es obligatorio. Sin la verificación en 2 pasos, no podrás generar contraseñas de aplicación.
+
+### Paso 2: Generar Contraseña de Aplicación
+
+Una vez que tengas la verificación en 2 pasos activada:
+
+1. Asegúrate de estar logueado en la cuenta correcta:
+   - Para Gmail personal: tu cuenta `@gmail.com`
+   - Para Google Workspace: tu cuenta corporativa (`tech@trustpeople.company`)
+
+2. Ve a la página de Contraseñas de aplicaciones: [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
+   
+   Si el enlace directo no funciona:
+   - Ve a [https://myaccount.google.com](https://myaccount.google.com)
+   - Haz clic en **"Seguridad"** en el menú lateral
+   - Busca **"Verificación en 2 pasos"** y haz clic
+   - Al final de la página, busca **"Contraseñas de aplicaciones"** y haz clic
+
+   **⚠️ Para Google Workspace:** Si no ves la opción de "Contraseñas de aplicaciones", puede que tu administrador la haya deshabilitado. Contacta a tu administrador para habilitarla.
+
+2. En la página de Contraseñas de aplicaciones:
+   - Selecciona **"Correo"** en el menú desplegable **"Seleccionar aplicación"**
+   - Selecciona **"Otro (nombre personalizado)"** en el menú desplegable **"Seleccionar dispositivo"**
+   - Escribe: **"Relevant Formulario Contacto"** (o cualquier nombre que prefieras)
+   - Haz clic en **"Generar"**
+
+3. Google te mostrará una contraseña de 16 caracteres que se ve así:
+   ```
+   xxxx xxxx xxxx xxxx
+   ```
+   **⚠️ IMPORTANTE:** Copia esta contraseña inmediatamente. Solo se muestra una vez y no podrás verla de nuevo.
+
+4. Usa esta contraseña (sin espacios) en tu archivo `.env.local` como `SMTP_PASS`
+
+### Paso 3: Configurar Variables de Entorno
+
+Crea o edita el archivo `.env.local` en la raíz de tu proyecto con estos valores:
+
+**Para Gmail personal:**
+```bash
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=relevantmx@gmail.com
+SMTP_PASS=xxxxxxxxxxxxxxxx
+SMTP_FROM=relevantmx@gmail.com
+```
+
+**Para Google Workspace (correo corporativo):**
+```bash
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=tech@trustpeople.company
+SMTP_PASS=xxxxxxxxxxxxxxxx
+SMTP_FROM=tech@trustpeople.company
+```
+
+**Reemplaza:**
+- El `SMTP_USER` con tu correo real (ya sea `@gmail.com` o `@tudominio.com` para Google Workspace)
+- `xxxxxxxxxxxxxxxx` con la contraseña de aplicación de 16 caracteres que generaste (sin espacios)
+- `SMTP_FROM` debe ser el mismo correo que `SMTP_USER` o un alias autorizado
+
+**Ejemplo real para Google Workspace:**
+```bash
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=tech@trustpeople.company
+SMTP_PASS=abcd efgh ijkl mnop
+SMTP_FROM=tech@trustpeople.company
+```
+
+**Nota:** 
+- En `SMTP_PASS` puedes dejar los espacios o quitarlos, ambos funcionan. Pero generalmente se copian sin espacios.
+- Para Google Workspace, el host SMTP sigue siendo `smtp.gmail.com` (no cambia)
+- Asegúrate de estar logueado en la cuenta correcta (`tech@trustpeople.company`) cuando generes la contraseña de aplicación
+
+### Paso 4: Reiniciar el Servidor
+
+1. Si el servidor de desarrollo está corriendo, deténlo con `Ctrl+C`
+2. Inicia el servidor nuevamente:
+   ```bash
+   bun run dev
+   ```
+
+### Paso 5: Probar el Formulario
+
+1. Ve a `http://localhost:3000`
+2. Navega a la sección de contacto
+3. Llena y envía el formulario
+4. Verifica en los correos destinatarios que recibieron el email
+5. Verifica en el correo del usuario que recibió el email de confirmación
+
+Si todo funciona correctamente, verás un mensaje de éxito y los emails llegarán a sus destinatarios.
+
+---
+
+## 🔧 Solución de Problemas para Gmail / Google Workspace
+
+### Error: "Invalid login" o "Authentication failed"
+
+**Causa:** Usaste tu contraseña normal en lugar de una contraseña de aplicación.
+
+**Solución:**
+- Asegúrate de usar una **contraseña de aplicación** generada (16 caracteres)
+- NO uses tu contraseña normal (ni de Gmail ni de Google Workspace)
+- Vuelve al Paso 2 y genera una nueva contraseña de aplicación
+- **Para Google Workspace:** Asegúrate de estar logueado en la cuenta correcta (`tech@trustpeople.company`) cuando generes la contraseña
+
+### Error: "Please log in via your web browser"
+
+**Causa:** La verificación en 2 pasos no está habilitada o Google bloqueó el acceso.
+
+**Solución:**
+1. Verifica que tengas la verificación en 2 pasos activada en tu cuenta (Gmail o Google Workspace)
+2. Asegúrate de usar una contraseña de aplicación, no tu contraseña normal
+3. **Para Google Workspace:** Si tu administrador ha restringido el acceso, puede que necesites permiso para usar aplicaciones externas
+
+### Error: "Access Denied" o "App password not available" (Google Workspace)
+
+**Causa:** Tu administrador de Google Workspace puede haber deshabilitado las contraseñas de aplicación.
+
+**Solución:**
+1. Contacta a tu administrador de Google Workspace
+2. Solicita que habilite las "Contraseñas de aplicaciones" para tu cuenta
+3. O solicita acceso SMTP a través de otras opciones si están disponibles en tu organización
+
+### Error: "Connection timeout"
+
+**Causa:** Problemas de firewall o puerto bloqueado.
+
+**Solución:**
+- Verifica que el puerto 587 no esté bloqueado por tu firewall
+- Prueba con el puerto 465 (SSL):
+  ```bash
+  SMTP_PORT=465
+  ```
+  Nota: El código ya está configurado para usar SSL automáticamente cuando el puerto es 465.
+
+---
 
 ## 🔐 Seguridad
 
-- ✅ La API Key nunca se expone al cliente (solo en servidor)
+- ✅ Las credenciales SMTP nunca se exponen al cliente (solo en servidor)
 - ✅ Validación en cliente y servidor
 - ✅ Variables de entorno protegidas por `.gitignore`
-- ✅ Rate limiting automático de Resend
+- ✅ Conexión SMTP encriptada (TLS/SSL)
 
 ## ✨ Características Implementadas
 
@@ -172,11 +248,11 @@ from: "Contacto Relevant <contacto@relevantmx.com>",
 
 ## 📝 Próximos Pasos (Opcional)
 
-1. **Verificar dominio personalizado** para emails profesionales
+1. **Configurar SPF/DKIM/DMARC** para mejorar la entrega de emails
 2. **Agregar analytics** para trackear envíos
-3. **Implementar webhooks** para notificaciones de entrega
+3. **Implementar colas de email** para mejor rendimiento
 4. **Agregar CAPTCHA** para prevenir spam
-5. **Crear templates de email** más complejos con React Email
+5. **Crear templates de email** más complejos con Handlebars o similar
 
 ---
 
