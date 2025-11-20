@@ -185,9 +185,9 @@ const ContactPage = () => {
               </p>
               <Link
                 className="font-medium text-primary"
-                href="mailto:contacto@relevantmx.com"
+                href="mailto:relevantmx@gmail.com"
               >
-                relevant@relevantmx.com
+                relevantmx@gmail.com
               </Link>
             </div>
             <div>
