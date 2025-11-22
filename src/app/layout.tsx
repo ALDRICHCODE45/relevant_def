@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
         {children}
         <SmoothScroll />
       </body>
+      <GoogleAnalytics gaId="G-M5JH5XN5S7" />
     </html>
   );
 }
