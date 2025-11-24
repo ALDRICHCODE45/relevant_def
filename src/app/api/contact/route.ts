@@ -14,11 +14,10 @@ const transporter = nodemailer.createTransport({
 
 // Correos institucionales destinatarios
 const RECIPIENTS = [
-  "nocheblanca92@gmail.com",
-  // "salvador@trustpeople.company",
-  // "digital@trustpeople.company",
-  // "gerencia@relevantmx.com",
-  // "manuel@topsales.expert",
+  "salvador@trustpeople.company",
+  "digital@trustpeople.company",
+  "gerencia@relevantmx.com",
+  "manuel@topsales.expert",
 ];
 
 interface ContactFormData {
