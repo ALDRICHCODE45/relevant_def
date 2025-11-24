@@ -4,12 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  MailIcon,
-  CheckCircle2,
-  AlertCircle,
-  Loader2,
-} from "lucide-react";
+import { MailIcon, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useState, FormEvent, useRef } from "react";
 import { motion } from "framer-motion";
@@ -185,9 +180,9 @@ const ContactPage = () => {
               </p>
               <Link
                 className="font-medium text-primary"
-                href="mailto:relevantmx@gmail.com"
+                href="mailto:relevant@relevantmx.com"
               >
-                relevantmx@gmail.com
+                relevant@relevantmx.com
               </Link>
             </div>
             <div>
