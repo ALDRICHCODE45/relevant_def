@@ -21,7 +21,7 @@ export default function HeroPage() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mt-4 sm:mt-6 text-2xl text-[#0C2055] sm:text-3xl md:text-5xl lg:text-6xl leading-tight sm:leading-[1.2] font-semibold tracking-tighter px-2"
         >
-          La evolución del headhunting
+          La evolución del headhunting para empresas
         </motion.h1>
 
         {/* Logo Relevant - entra después del texto */}
