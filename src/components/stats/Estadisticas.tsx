@@ -41,7 +41,7 @@ const Estadisticas = () => {
   return (
     <section
       id="resultados"
-      className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16"
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 "
     >
       <div ref={ref} className="max-w-(--breakpoint-lg) w-full">
         <motion.h2
@@ -91,7 +91,7 @@ const Estadisticas = () => {
                   {descripcion}
                 </p>
               </motion.div>
-            )
+            ),
           )}
         </div>
       </div>

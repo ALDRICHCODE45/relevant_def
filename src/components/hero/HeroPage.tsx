@@ -10,7 +10,7 @@ export default function HeroPage() {
   return (
     <section
       id="inicio"
-      className="min-h-screen flex items-center justify-center px-4 sm:px-6 pb-12"
+      className="h-screen flex items-center justify-center px-4 sm:px-6"
     >
       <BackgroundPattern />
 
@@ -21,7 +21,7 @@ export default function HeroPage() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mt-4 sm:mt-6 text-2xl text-[#0C2055] sm:text-3xl md:text-5xl lg:text-6xl leading-tight sm:leading-[1.2] font-semibold tracking-tighter px-2"
         >
-          La evolución del headhunting tradicional se llama
+          La evolución del headhunting
         </motion.h1>
 
         {/* Logo Relevant - entra después del texto */}
@@ -31,7 +31,7 @@ export default function HeroPage() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-2xl text-[#0C2055] sm:text-3xl md:text-5xl lg:text-6xl leading-tight sm:leading-[1.2] font-semibold tracking-tighter px-2"
         >
-          relevant{" "}
+          se llama relevant{" "}
           <span className="text-base md:text-lg lg:text-xl align-super relative -top-1">
             ®
           </span>
